@@ -3,7 +3,7 @@ import json
 import pyttsx3
 from random import choice
 import speech_recognition as sr
-
+import wikipedia
 engine = pyttsx3.init()     # создание объекта
 
 """ RATE"""
@@ -38,7 +38,10 @@ def search_for_video_on_youtube(args: list):
     webbrowser.get().open(f"https://www.youtube.com/results?search_query={search}")
 
 def search_for_definition_on_wikipedia(args: list):
-    pass
+    wikipedia.set_lang('ru')
+    ny = wikipedia.page(args)
+    engine.say(wikipedia.summary(args, sentences=3))
+    webbrowser.get().open(ny.url)
 
 
 def execute_command_with_name(command_name: str, *args: list):
@@ -99,7 +102,4 @@ if __name__ == '__main__':
         engine.stop()
 
 
-# webbrowser.get(open("https://www.youtube.com/results?search_query=Коментанте")) команда для открытия страницы в браузере по умолчанию
-# https://www.youtube.com/results?search_query=Коментанте       | команда для поиска в ютубе
-# https://ru.wikipedia.org/w/index.php?search=          | команда для поиска на википедии
-#
+
